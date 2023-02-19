@@ -14,13 +14,14 @@ class Program
         //Подключение к БД
         sqlConnection = new SqlConnection(connectionString);
         sqlConnection.Open();
+        bool work = true;
 
         Console.WriteLine("StudentsDB\n");
 
         //Переменная для хранения команд
         string command = string.Empty;
 
-        while (true)
+        while (work)
         {
             //Ожидание ввода команды
             Console.Write(">");
@@ -37,7 +38,6 @@ class Program
             //Кейсы команд
             switch (command.ToLower())
             {
-
                 //Отображение всей таблицы
                 case "show":
                     Show.All(sqlConnection);
@@ -103,6 +103,11 @@ class Program
                     Search.Select(sqlConnection);
                     break;
 
+                //Выход
+                case "exit":
+                    work = false;
+                    break;
+
                 //Информация о доступных командах
                 case "помощь":
                 case "h":
@@ -120,7 +125,8 @@ class Program
                         "Сумма значение cреднего балла - scoresum\n" +
                         "Найти студента по ФИО - findname\n" +
                         "Найти студента по дате рождения - find\n" +
-                        "Самостоятельный ввод запроса - search");
+                        "Самостоятельный ввод запроса - search\n" +
+                        "Выход - exit");
                     break;
                 //Обработка неверных команд
                 default:
